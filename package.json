@@ -1,0 +1,8 @@
+{
+  "name" : "modern-web-dev-step-by-step",
+  "description" : "Building a web application with a modern stack, step by step.",
+
+  "scripts": {
+    "start-server": "node ./src/server.js"
+  }
+}
