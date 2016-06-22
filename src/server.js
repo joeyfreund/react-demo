@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
 
+app.use(express.static(__dirname + '/static'))
+
 app.get('/', function (req, res) {
   res.send('Hello World!');
 });
@@ -18,7 +20,7 @@ app.get('/api/:version/products', function (req, res) {
       {brand: 'Kenzo', product: 'Black Tiger T-Shirt', image: 'https://res.cloudinary.com/ssenseweb/image/upload/b_white,c_lpad,g_south,h_1086,w_724/c_scale,h_560/v488/162387F110001_1.jpg'}
     ]
   });
-  
+
 });
 
 
