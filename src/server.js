@@ -10,17 +10,15 @@ app.get('/api/:version/products', function (req, res) {
   // Notice how we capture the path parameter
   console.log(`Got an API call (API version ${req.params.version})`)
 
-  res.setHeader('Content-Type', 'application/json');
-  res.send(
-    JSON.stringify({
-      items: [
-        {brand: 'Ann Demeulemeester', product: 'Black Quilted Shirt Jacket', image: 'https://res.cloudinary.com/ssenseweb/image/upload/b_white/v488/162378M180003_1.jpg'},
-        {brand: 'Palm Angels', product: 'Blue USA Cap', image: 'https://res.cloudinary.com/ssenseweb/image/upload/b_white,c_lpad,g_south,h_1086,w_724/c_scale,h_560/v488/161695M139003_1.jpg'},
-        {brand: 'Blackmeans', product: 'Green Check Shirt', image: 'https://res.cloudinary.com/ssenseweb/image/upload/b_white,c_lpad,g_south,h_1086,w_724/c_scale,h_560/v488/161625M192001_1.jpg'},
-        {brand: 'Kenzo', product: 'Black Tiger T-Shirt', image: 'https://res.cloudinary.com/ssenseweb/image/upload/b_white,c_lpad,g_south,h_1086,w_724/c_scale,h_560/v488/162387F110001_1.jpg'}
-      ]
-    })
-  );
+  res.json({
+    items: [
+      {brand: 'Ann Demeulemeester', product: 'Black Quilted Shirt Jacket', image: 'https://res.cloudinary.com/ssenseweb/image/upload/b_white/v488/162378M180003_1.jpg'},
+      {brand: 'Palm Angels', product: 'Blue USA Cap', image: 'https://res.cloudinary.com/ssenseweb/image/upload/b_white,c_lpad,g_south,h_1086,w_724/c_scale,h_560/v488/161695M139003_1.jpg'},
+      {brand: 'Blackmeans', product: 'Green Check Shirt', image: 'https://res.cloudinary.com/ssenseweb/image/upload/b_white,c_lpad,g_south,h_1086,w_724/c_scale,h_560/v488/161625M192001_1.jpg'},
+      {brand: 'Kenzo', product: 'Black Tiger T-Shirt', image: 'https://res.cloudinary.com/ssenseweb/image/upload/b_white,c_lpad,g_south,h_1086,w_724/c_scale,h_560/v488/162387F110001_1.jpg'}
+    ]
+  });
+  
 });
 
 
