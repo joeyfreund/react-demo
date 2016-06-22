@@ -1,3 +1,6 @@
 node_modules/
 tmp/
 npm-debug.log
+
+src/static/bundle.js
+src/static/bundle.js.map
