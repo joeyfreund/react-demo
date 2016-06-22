@@ -2,9 +2,22 @@
   "name": "modern-web-dev-step-by-step",
   "description": "Building a web application with a modern stack, step by step.",
   "scripts": {
-    "start-server": "node ./src/server.js"
+    "start-server": "better-npm-run start-server"
+  },
+  "betterScripts": {
+    "start-server": {
+      "command": "node ./src/server.js",
+      "env": {
+        "NODE_PATH": "./src",
+        "NODE_ENV": "development",
+        "PORT": 8080
+      }
+    }
   },
   "dependencies": {
     "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "better-npm-run": "0.0.9"
   }
 }
