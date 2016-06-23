@@ -28,6 +28,12 @@ class Grid extends React.Component {
 // Another stateless, view-only component.
 class SearchBar extends React.Component {
 
+  constructor(){
+    super();
+    // No auto-binding with ES6 classes (see https://facebook.github.io/react/docs/reusable-components.html#no-autobinding)
+    this.handleOnChange = this.handleOnChange.bind(this);
+  }
+
   handleOnChange(event){
     this.props.textChanged(event.target.value.trim());
   }
@@ -36,7 +42,7 @@ class SearchBar extends React.Component {
     return (
       <div>
         <input type="text" placeholder="Search..." 
-            onChange={this.handleOnChange.bind(this)} />
+            onChange={this.handleOnChange} />
       </div>
     );
   }
