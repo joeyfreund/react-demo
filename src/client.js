@@ -8,7 +8,7 @@ import HelloWorld from './components/hello.js';
 render(
   <div>
     <h1>Welcome</h1>
-    <HelloWorld/>
+    <HelloWorld name="Dave"/>
   </div>,
   document.getElementById('root')
 );

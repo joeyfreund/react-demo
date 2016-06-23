@@ -6,7 +6,7 @@ export default class HelloWorld extends React.Component {
   render() {
     return (
       <p>
-        Hello World! I am a React component
+        Hello, {this.props.name}! I am a React component
       </p>
     );
   }
