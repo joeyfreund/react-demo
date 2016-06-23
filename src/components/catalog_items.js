@@ -34,6 +34,7 @@ class SearchBar extends React.Component {
     this.handleOnChange = this.handleOnChange.bind(this);
   }
 
+
   handleOnChange(event){
     this.props.textChanged(event.target.value.trim());
   }
@@ -47,6 +48,12 @@ class SearchBar extends React.Component {
     );
   }
 }
+
+
+SearchBar.propTypes = {
+  textChanged: React.PropTypes.func.isRequired
+};
+
 
 
 
