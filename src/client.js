@@ -2,14 +2,7 @@
 
 import React from 'react';
 import {render} from 'react-dom';
-import HelloWorld from './components/hello.js';
 import CatalogItems from './components/catalog_items.js';
-
-
-const myClickHandler = (e) => {
-	e.preventDefault();
-	alert('You clicked me.')
-};
 
 
 const FAKE_DATA = [
@@ -22,8 +15,7 @@ const FAKE_DATA = [
 
 render(
   <div>
-    <h1>Welcome</h1>
-    <HelloWorld name="Dave" callback={ myClickHandler }/>
+    <h1>Demo Catalog</h1>
     <CatalogItems items={FAKE_DATA} />
   </div>,
   document.getElementById('root')
