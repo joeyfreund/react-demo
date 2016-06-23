@@ -1,27 +1,33 @@
 import React from 'react';
-import CatalogGrid from './catalog/grid.js';
-import SearchBar from './catalog/search_bar.js';
+import CatalogGrid from './grid.js';
+import SearchBar from './search_bar.js';
 
+require('isomorphic-fetch');
 
 // A component that stores data (as its internal state).
 // The data is passes to view-only component(s) as properties.
 // The render() method simply sets the properties of view-only components.
-export default class CatalogItems extends React.Component {
-
+export default class Catalog extends React.Component {
 
 
   constructor(){
     super();
     this.state = { items: [], filterText: ''};
+    this.shouldDisplay = this.shouldDisplay.bind(this);
+  }
+
+
+  shouldDisplay(item){
+    let t = this.state.filterText.toLowerCase();
+    return item.brand.toLowerCase().includes(t) || 
+         item.product.toLowerCase().includes(t);   
   }
 
 
   componentWillMount() {
-    require('isomorphic-fetch');
     fetch(this.props.getUrl)
       .then(res => res.json())
       .then(json => {
-        // setState() causes a re-rendering of the component
         this.setState( { items : json.items });
       })
       .catch(err => { 
@@ -34,15 +40,9 @@ export default class CatalogItems extends React.Component {
 
   render() {
 
-    // Prepare data for the view(s) ...
-    let displayedItems = this.state.items.filter((item) => {
-      let text = this.state.filterText.toLowerCase();
-      return item.brand.toLowerCase().includes(text) || 
-           item.product.toLowerCase().includes(text);   
-    });
+    let displayedItems = this.state.items.filter(this.shouldDisplay);
     let onTextChanged = (t) => { this.setState({filterText: t}); };
 
-    // Now we ready to render
     return (
       <div>
         <SearchBar textChanged={onTextChanged} />
@@ -54,3 +54,7 @@ export default class CatalogItems extends React.Component {
 }
 
 
+
+Catalog.propTypes = {
+  getUrl: React.PropTypes.string.isRequired
+};
