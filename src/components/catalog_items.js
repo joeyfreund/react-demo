@@ -1,5 +1,5 @@
 import React from 'react';
-import CatalogItem from './catalog_item.js';
+import CatalogItem from './catalog/item.js';
 
 
 // A stateless, view-only component.
