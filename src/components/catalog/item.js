@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router'
 
 
 export default class CatalogItem extends React.Component {
@@ -9,11 +10,13 @@ export default class CatalogItem extends React.Component {
   	let imgStyle = { maxHeight: 320 };
 
   	return (
-      <div style={style}>
-      	<h1>{this.props.brand}</h1>
-      	<img src={this.props.image} style={ imgStyle }/>
-      	<h2>{this.props.product}</h2>
-      </div>
+      <Link to={this.props.productPage}>
+        <div style={style}>
+        	<h1>{this.props.brand}</h1>
+        	<img src={this.props.image} style={ imgStyle }/>
+        	<h2>{this.props.product}</h2>
+        </div>
+      </Link>
     );
   }
 }
@@ -22,7 +25,8 @@ export default class CatalogItem extends React.Component {
 CatalogItem.propTypes = {
   brand: React.PropTypes.string.isRequired,
   product: React.PropTypes.string.isRequired,
-  image: React.PropTypes.string.isRequired
+  image: React.PropTypes.string.isRequired,
+  productPage: React.PropTypes.string.isRequired
 };
 
 CatalogItem.defaultProps = {

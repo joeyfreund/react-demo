@@ -58,3 +58,8 @@ export default class Catalog extends React.Component {
 Catalog.propTypes = {
   getUrl: React.PropTypes.string.isRequired
 };
+
+Catalog.defaultProps = {
+  getUrl: '/api/v1/products'
+};
+

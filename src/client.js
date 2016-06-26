@@ -1,13 +1,21 @@
 // Client (i.e. frontend) application entry point (i.e. main)
 import React from 'react';
 import {render} from 'react-dom';
+import { Router, Route, hashHistory, IndexRoute } from 'react-router'
+
+import App from './components/app.js';
+import Home from './components/home.js';
 import Catalog from './components/catalog/catalog.js';
+import ProductPage from './components/product_page.js';
 
 
 render(
-  <div>
-    <h1>Demo Catalog</h1>
-    <Catalog getUrl="/api/v1/products" />
-  </div>,
+  <Router history={hashHistory}>
+  <Route path="/" component={App} >
+  	<IndexRoute component={Home}/>
+	<Route path="/catalog" component={Catalog} />
+	<Route path="/product/:id" component={ProductPage} />
+  </Route>
+  </Router>,
   document.getElementById('root')
 );
