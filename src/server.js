@@ -4,9 +4,6 @@ var app = express();
 
 app.use(express.static(__dirname + '/static'))
 
-app.get('/', function (req, res) {
-  res.send('Hello World!');
-});
 
 app.get('/api/:version/products', function (req, res) {
 
@@ -15,11 +12,11 @@ app.get('/api/:version/products', function (req, res) {
 
   res.json({
     items: shuffle([
-      {brand: 'Chloe', product: 'Blue Denim Dress', image: 'https://res.cloudinary.com/ssenseweb/image/upload/b_white,c_lpad,g_south,h_1086,w_724/c_scale,h_560/v489/162338F052002_1.jpg'},
-      {brand: 'Palm Angels', product: 'Blue USA Cap', image: 'https://res.cloudinary.com/ssenseweb/image/upload/b_white,c_lpad,g_south,h_1086,w_724/c_scale,h_560/v488/161695M139003_1.jpg'},
-      {brand: 'Blackmeans', product: 'Green Check Shirt', image: 'https://res.cloudinary.com/ssenseweb/image/upload/b_white,c_lpad,g_south,h_1086,w_724/c_scale,h_560/v488/161625M192001_1.jpg'},
-      {brand: 'Kenzo', product: 'Black Tiger T-Shirt', image: 'https://res.cloudinary.com/ssenseweb/image/upload/b_white,c_lpad,g_south,h_1086,w_724/c_scale,h_560/v488/162387F110001_1.jpg'},
-      {brand: 'Kenzo', product: 'Green T-Shirt'}
+      {id: 1, price: 129.99, brand: 'Chloe', product: 'Blue Denim Dress', image: 'https://res.cloudinary.com/ssenseweb/image/upload/b_white,c_lpad,g_south,h_1086,w_724/c_scale,h_560/v489/162338F052002_1.jpg'},
+      {id: 2, price: 49.99, brand: 'Palm Angels', product: 'Blue USA Cap', image: 'https://res.cloudinary.com/ssenseweb/image/upload/b_white,c_lpad,g_south,h_1086,w_724/c_scale,h_560/v488/161695M139003_1.jpg'},
+      {id: 3, price: 79.99, brand: 'Blackmeans', product: 'Green Check Shirt', image: 'https://res.cloudinary.com/ssenseweb/image/upload/b_white,c_lpad,g_south,h_1086,w_724/c_scale,h_560/v488/161625M192001_1.jpg'},
+      {id: 4, price: 79.99, brand: 'Kenzo', product: 'Black Tiger T-Shirt', image: 'https://res.cloudinary.com/ssenseweb/image/upload/b_white,c_lpad,g_south,h_1086,w_724/c_scale,h_560/v488/162387F110001_1.jpg'},
+      {id: 5, price: 79.99, brand: 'Kenzo', product: 'Green T-Shirt'}
     ])
   });
 
