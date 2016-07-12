@@ -7,9 +7,9 @@ export default class App extends React.Component {
 	render(){
 		return (
 			<div>
-				<div class="nav" style={{marginBottom: 48}}>
-					<Link to="/">Home</Link> 
-					&nbsp; | &nbsp; 
+				<div className="nav" style={{marginBottom: 48}}>
+					<Link to="/">Home</Link>
+					&nbsp; | &nbsp;
 			    	<Link to="/catalog">Catalog</Link>
 		    	</div>
 

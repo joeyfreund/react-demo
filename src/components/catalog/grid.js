@@ -9,7 +9,7 @@ export default class CatalogGrid extends React.Component {
     return (
       <div>
         {this.props.items.map(
-          (item, i) => { 
+          (item, i) => {
             return (
               <div key={i} style={{ float: 'left' }}>
                 <CatalogItem  {...item} productPage={'/product/' + item.id}/>
@@ -27,9 +27,9 @@ export default class CatalogGrid extends React.Component {
 CatalogGrid.propTypes = {
   items: React.PropTypes.arrayOf(
     React.PropTypes.shape({
-      id: React.PropTypes.any.isRequired,
+      sku: React.PropTypes.any.isRequired,
       brand: React.PropTypes.string.isRequired,
-      product: React.PropTypes.string.isRequired,
+      name: React.PropTypes.string.isRequired,
       image: React.PropTypes.string
     })
   ).isRequired

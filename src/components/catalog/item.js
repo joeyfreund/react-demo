@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 
 export default class CatalogItem extends React.Component {
 
-  render() { 
+  render() {
 
   	let style    = {textAlign: 'center', margin: 16};
   	let imgStyle = { maxHeight: 320 };
@@ -14,7 +14,7 @@ export default class CatalogItem extends React.Component {
         <div style={style}>
         	<h1>{this.props.brand}</h1>
         	<img src={this.props.image} style={ imgStyle }/>
-        	<h2>{this.props.product}</h2>
+        	<h2>{this.props.name}</h2>
         </div>
       </Link>
     );
@@ -24,7 +24,7 @@ export default class CatalogItem extends React.Component {
 
 CatalogItem.propTypes = {
   brand: React.PropTypes.string.isRequired,
-  product: React.PropTypes.string.isRequired,
+  name: React.PropTypes.string.isRequired,
   image: React.PropTypes.string.isRequired,
   productPage: React.PropTypes.string.isRequired
 };
@@ -32,4 +32,3 @@ CatalogItem.propTypes = {
 CatalogItem.defaultProps = {
  image: 'http://placehold.it/200x320?text=Missing+image'
 };
-

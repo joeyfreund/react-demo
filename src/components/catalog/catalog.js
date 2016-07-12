@@ -19,8 +19,8 @@ export default class Catalog extends React.Component {
 
   shouldDisplay(item){
     let t = this.state.filterText.toLowerCase();
-    return item.brand.toLowerCase().includes(t) || 
-         item.product.toLowerCase().includes(t);   
+    return item.brand.toLowerCase().includes(t) ||
+         item.product.toLowerCase().includes(t);
   }
 
 
@@ -28,11 +28,11 @@ export default class Catalog extends React.Component {
     fetch(this.props.getUrl)
       .then(res => res.json())
       .then(json => {
-        this.setState( { items : json.items });
+        this.setState( json);
       })
-      .catch(err => { 
+      .catch(err => {
         // TODO: Change the state of this component, to indicate an error
-        console.log('ERROR', err); 
+        console.log('ERROR', err);
       });
   }
 
@@ -62,4 +62,3 @@ Catalog.propTypes = {
 Catalog.defaultProps = {
   getUrl: '/api/v1/products'
 };
-
