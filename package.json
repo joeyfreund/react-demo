@@ -1,7 +1,7 @@
 {
   "name": "modern-web-dev-step-by-step",
   "description": "Building a web application with a modern stack, step by step.",
-  "license" : "MIT",
+  "license": "MIT",
   "scripts": {
     "start-server": "better-npm-run start-server"
   },
@@ -17,8 +17,8 @@
   },
   "dependencies": {
     "express": "^4.14.0",
+    "express-paginate": "^0.2.0",
     "isomorphic-fetch": "^2.2.1",
-    "knuth-shuffle": "^1.0.1",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-router": "^2.5.1"
