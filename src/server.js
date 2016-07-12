@@ -1,5 +1,18 @@
 var shuffle = require('knuth-shuffle').knuthShuffle
 var express = require('express');
+
+var db = require('./db.js');
+
+// Let's make sure we can get DB connections from the pool
+db.getConnection(function(error, connection){
+  if(error){
+    console.log('Failed to the connect to the database', error);
+    process.exit(1);
+  }
+});
+
+
+
 var app = express();
 
 app.use(express.static(__dirname + '/static'))
