@@ -12,6 +12,7 @@ export default class Catalog extends React.Component {
 
   constructor(){
     super();
+    // TODO: Get rid of the internal state
     this.state = { items: [], filterText: ''};
     this.shouldDisplay = this.shouldDisplay.bind(this);
   }
@@ -28,7 +29,9 @@ export default class Catalog extends React.Component {
     fetch(this.props.getUrl)
       .then(res => res.json())
       .then(json => {
+        // TODO: Dispatch an action to the store, with the json data
         this.setState( json);
+
       })
       .catch(err => {
         // TODO: Change the state of this component, to indicate an error
@@ -39,8 +42,10 @@ export default class Catalog extends React.Component {
 
 
   render() {
-
+    // TODO: Get items from the store.getState(), instead of this.state
     let displayedItems = this.state.items.filter(this.shouldDisplay);
+
+    // TODO: Don't this.setState() instead update the store by dispatching an action
     let onTextChanged = (t) => { this.setState({filterText: t}); };
 
     return (
