@@ -1,5 +1,7 @@
 // Client (i.e. frontend) application entry point (i.e. main)
 import React from 'react';
+import { createStore } from 'redux';
+import {Provider} from 'react-redux';
 import {render} from 'react-dom';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router'
 
@@ -9,13 +11,20 @@ import Catalog from './components/catalog/catalog.js';
 import ProductPage from './components/product_page.js';
 
 
+var store = createStore(
+  // TODO: A real reducer please !!!
+  (state, action) => 42
+);
+
 render(
-  <Router history={hashHistory}>
-  <Route path="/" component={App} >
-  	<IndexRoute component={Home}/>
-	<Route path="/catalog" component={Catalog} />
-	<Route path="/product/:id" component={ProductPage} />
-  </Route>
-  </Router>,
+  <Provider store={store}>
+    <Router history={hashHistory}>
+    <Route path="/" component={App} >
+    	<IndexRoute component={Home}/>
+  	<Route path="/catalog" component={Catalog} />
+  	<Route path="/product/:id" component={ProductPage} />
+    </Route>
+    </Router>
+  </Provider>,
   document.getElementById('root')
 );
