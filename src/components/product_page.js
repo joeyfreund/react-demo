@@ -18,7 +18,7 @@ export default class ProductPage extends React.Component {
   }
 
   productId(){
-    return this.props ? this.props.params.id : null;
+    return this.props ? this.props.params.sku : null;
   }
 
   componentWillMount() {
@@ -27,8 +27,8 @@ export default class ProductPage extends React.Component {
       .then(json => {
         this.setState(json);
       })
-      .catch(err => { 
-        console.log('ERROR', err); 
+      .catch(err => {
+        console.log('ERROR', err);
       });
   }
 
@@ -37,8 +37,8 @@ export default class ProductPage extends React.Component {
   }
 
   render(){
-    return ( 
-      <ProductPageView {...this.state } addToCart= {this.addToCart} /> 
+    return (
+      <ProductPageView {...this.state } addToCart= {this.addToCart} />
     );
   }
 
@@ -64,7 +64,7 @@ class ProductPageView extends React.Component {
   render() {
     return (
       <div>
-        <img src={ this.props.image } style={{float: 'left'}}/>        
+        <img src={ this.props.image } style={{float: 'left'}}/>
         <h1>{ this.props.brand } </h1>
         <h2>{ this.props.product }</h2>
         <p>Price: { this.props.price }$</p>

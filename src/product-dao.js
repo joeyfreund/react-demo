@@ -1,13 +1,13 @@
 'use strict';
 
-export default class ProductDAO {
+class ProductDAO {
 
   constructor(db){
     this.db = db;
   }
 
 
-  getProducts(callback, options){
+  getProducts(options, callback){
     options = options || {};
     var limit = options.limit || 25;
     var page  = options.page  || 1;
@@ -25,7 +25,7 @@ export default class ProductDAO {
   };
 
 
-  getProduct(sku, callback, options){
+  getProduct(sku, options, callback){
     options = options || {};
     this.db.query('SELECT * FROM products WHERE sku=?', [sku],
       function(err, rows, fields) {
@@ -41,3 +41,6 @@ export default class ProductDAO {
   };
 
 }
+
+
+module.exports = ProductDAO;
