@@ -17,7 +17,7 @@ export default class SearchBar extends React.Component {
   render() {
     return (
       <div>
-        <input type="text" placeholder="Search..." 
+        <input type="text" placeholder="Search..."
             onChange={this.handleOnChange} />
       </div>
     );

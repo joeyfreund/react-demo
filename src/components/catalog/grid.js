@@ -12,7 +12,7 @@ export default class CatalogGrid extends React.Component {
           (item, i) => {
             return (
               <div key={i} style={{ float: 'left' }}>
-                <CatalogItem  {...item} productPage={'/product/' + item.id}/>
+                <CatalogItem  {...item} productPage={'/product/' + item.sku}/>
               </div>
             );
           }

@@ -20,7 +20,7 @@ export default class Catalog extends React.Component {
   shouldDisplay(item){
     let t = this.state.filterText.toLowerCase();
     return item.brand.toLowerCase().includes(t) ||
-         item.product.toLowerCase().includes(t);
+         item.name.toLowerCase().includes(t);
   }
 
 
