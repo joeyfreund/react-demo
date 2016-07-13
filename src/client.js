@@ -9,12 +9,11 @@ import App from './components/app.js';
 import Home from './components/home.js';
 import Catalog from './components/catalog/catalog.js';
 import ProductPage from './components/product_page.js';
+import reducer from './reducers/reducer.js'
 
 
-var store = createStore(
-  // TODO: A real reducer please !!!
-  (state, action) => 42
-);
+
+var store = createStore(reducer);
 
 render(
   <Provider store={store}>
