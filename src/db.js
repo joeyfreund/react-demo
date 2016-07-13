@@ -1,3 +1,5 @@
+'use strict';
+
 var mysql = require('mysql');
 
 // TODO: In a real application, values will come from the environment, not hard-coded
