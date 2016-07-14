@@ -1,85 +1,49 @@
+import { connect } from 'react-redux'
 import React from 'react';
 require('isomorphic-fetch');
 
 
-// Container, in charge of making API call, and passing the
-// returned data to the view compoent (as properties)
-export default class ProductPage extends React.Component {
 
-  constructor(){
-    super();
-    this.addToCart = this.addToCart.bind(this);
-    this.state = {
-      brand: '--',
-      product: '--',
-      price: 0.0,
-      image: 'http://placehold.it/240x480?text=Missing+image'
-    };
-  }
-
-  productId(){
-    return this.props ? this.props.params.sku : null;
-  }
-
-  componentWillMount() {
-    fetch('/api/v1/product/' + this.productId())
-      .then(res  => res.json())
-      .then(json => {
-        this.setState(json);
-      })
-      .catch(err => {
-        console.log('ERROR', err);
-      });
-  }
-
-  addToCart() {
-    alert("Need to add product " + this.productId() + " to shopping cart.");
-  }
-
-  render(){
-    return (
-      <ProductPageView {...this.state } addToCart= {this.addToCart} />
-    );
-  }
-
-}
-
-
-ProductPage.propTypes = {
-  params: React.PropTypes.shape({
-    id: React.PropTypes.any.isRequired
-  }).isRequired
-};
-
-
-
-
-// View-only component
-class ProductPageView extends React.Component {
-
-  constructor(){
-    super();
-  }
-
-  render() {
-    return (
-      <div>
-        <img src={ this.props.image } style={{float: 'left'}}/>
-        <h1>{ this.props.brand } </h1>
-        <h2>{ this.props.product }</h2>
-        <p>Price: { this.props.price }$</p>
-        <input type="button" value="Add to shopping cart" onClick={this.props.addToCart } />
-      </div>
-    );
-  }
+// Presentational component (stateless, functional component)
+const ProductPageView = (props) => {
+  return (
+    <div>
+      <img src={ props.image } style={{float: 'left'}}/>
+      <h1>{ props.brand } </h1>
+      <h2>{ props.name }</h2>
+      <p>Price: { props.price }$</p>
+      <input type="button" value="Add to shopping cart" onClick={props.addToCart } />
+    </div>
+  );
 }
 
 
 
-ProductPageView.propTypes = {
-  price: React.PropTypes.number.isRequired,
-  brand: React.PropTypes.string.isRequired,
-  product: React.PropTypes.string.isRequired,
-  image: React.PropTypes.string.isRequired,
-  addToCart: React.PropTypes.func.isRequired
+// Connect the CatalogView to the Redux store ...
+
+const mapStateToProps = (state, ownProps) => {
+  var item = state.items.find(item => item.sku == ownProps.routeParams.sku);
+
+  return {
+    price: 999.99,
+    brand: item.brand,
+    name: item.name,
+    image: item.image
+  };
 };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addToCart: () => {
+      alert('Need to add item to shopping cart');
+    }
+  };
+};
+
+const ProductPage = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProductPageView);
+
+// Export the connected component
+export default ProductPage;

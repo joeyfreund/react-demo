@@ -21,7 +21,7 @@ render(
     <Route path="/" component={App} >
     	<IndexRoute component={Home}/>
   	<Route path="/catalog" component={Catalog}/>
-  	<Route path="/product/:id" component={ProductPage} />
+  	<Route path="/product/:sku" component={ProductPage} />
     </Route>
     </Router>
   </Provider>,
