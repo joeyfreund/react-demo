@@ -1,3 +1,5 @@
+import { connect } from 'react-redux'
+
 import React from 'react';
 import CatalogGrid from './grid.js';
 import SearchBar from './search_bar.js';
@@ -5,68 +7,71 @@ import SearchBar from './search_bar.js';
 require('isomorphic-fetch');
 
 
-// A component that stores data (as its internal state).
-// The data is passes to view-only component(s) as properties.
-// The render() method simply sets the properties of view-only components.
-export default class Catalog extends React.Component {
 
-
-  constructor(props, context){
-    super(props, context);
-    this.store = this.context.store;
-    this.shouldDisplay = this.shouldDisplay.bind(this);
-  }
+// Presentational component, that triggers an AJAX request before it is mounted
+class CatalogView extends React.Component {
 
   componentWillMount() {
     fetch(this.props.getUrl)
       .then(res => res.json())
-      .then(json => {
-        this.store.dispatch({type: 'ITEMS_UPDATED', items: json.items});
-      })
+      .then(json => this.props.onItemsUpdated(json.items))
       .catch(err => {
         console.log('ERROR', err);
       });
   }
 
-  componentDidMount() {
-    this.store.subscribe(this.forceUpdate.bind(this));
-  }
-
-
-  shouldDisplay(item){
-    let t = this.store.getState().filterText.toLowerCase();
-    return item.brand.toLowerCase().includes(t) ||
-         item.name.toLowerCase().includes(t);
-  }
-
-  render() {
-    let displayedItems = this.store.getState().items.filter(this.shouldDisplay);
-    let onTextChanged = (t) => {
-      this.store.dispatch({type: 'FILTER_TEXT_CHANGED', filterText: t});
-    };
-
-    return (
-      <div>
-        <SearchBar textChanged={onTextChanged} />
-        <p>Showing {displayedItems.length} item(s)</p>
-        <CatalogGrid items={displayedItems} />
-      </div>
-    );
+  render(){
+      return (
+        <div>
+          <SearchBar textChanged={this.props.onTextChanged} />
+          <p>Showing {this.props.displayedItems.length} item(s)</p>
+          <CatalogGrid items={this.props.displayedItems} />
+        </div>
+      );
   }
 }
 
 
 
+// Connect the CatalogView to the Redux store ...
+
+const mapStateToProps = (state, ownProps) => {
+
+  function shouldDisplay(item){
+    let t = state.filterText.toLowerCase();
+    return item.brand.toLowerCase().includes(t) ||
+           item.name.toLowerCase().includes(t);
+  }
+
+  return {
+    displayedItems: state.items.filter(shouldDisplay),
+    getUrl: ownProps.getUrl
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onTextChanged: (t) => {
+      dispatch({type: 'FILTER_TEXT_CHANGED', filterText: t});
+    },
+    onItemsUpdated: (items) => {
+      dispatch({type: 'ITEMS_UPDATED', 'items': items});
+    }
+  };
+};
+
+const Catalog = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CatalogView);
+
 Catalog.propTypes = {
-  getUrl: React.PropTypes.string.isRequired
+  getUrl: React.PropTypes.string
 };
 
 Catalog.defaultProps = {
   getUrl: '/api/v1/products'
 };
 
-// This will make this.context available.
-// The store will be provided by the Provider component.
-Catalog.contextTypes = {
-  store: React.PropTypes.object.isRequired
-};
+// Export the connected component
+export default Catalog;

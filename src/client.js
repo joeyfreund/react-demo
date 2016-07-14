@@ -12,14 +12,6 @@ import Home from './components/home.js';
 import Catalog from './components/catalog/catalog.js';
 import ProductPage from './components/product_page.js';
 
-// FIXME: React and Redux are currently wored together manually,
-//        instead of using react-redux's connect() function.
-//
-//        This is not a huge problem, but we are giving up the performance
-//        optimizations made in the connect method.
-//        Specifically, the container-component created by connect()
-//        implements the shouldComponentUpdate life-cycle event.
-
 
 var store = createStore(reducer);
 
