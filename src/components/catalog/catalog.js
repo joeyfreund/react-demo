@@ -4,8 +4,6 @@ import SearchBar from './search_bar.js';
 
 require('isomorphic-fetch');
 
-var reduxStore = require('../../store.js');
-
 
 // A component that stores data (as its internal state).
 // The data is passes to view-only component(s) as properties.
@@ -13,20 +11,23 @@ var reduxStore = require('../../store.js');
 export default class Catalog extends React.Component {
 
 
-  constructor(){
-    super();
-    reduxStore.subscribe(() => {
+  constructor(props, context){
+    super(props, context);
+    this.store = this.context.store;
+    this.shouldDisplay = this.shouldDisplay.bind(this);
+
+    this.store.subscribe(() => {
       // FIXME: We need to use render(), not forceUpdate().
       //        See comment in src/client.js
       this.forceUpdate();
     });
 
-    this.shouldDisplay = this.shouldDisplay.bind(this);
+
   }
 
 
   shouldDisplay(item){
-    let t = reduxStore.getState().filterText.toLowerCase();
+    let t = this.store.getState().filterText.toLowerCase();
     return item.brand.toLowerCase().includes(t) ||
          item.name.toLowerCase().includes(t);
   }
@@ -36,7 +37,7 @@ export default class Catalog extends React.Component {
     fetch(this.props.getUrl)
       .then(res => res.json())
       .then(json => {
-        reduxStore.dispatch({type: 'ITEMS_UPDATED', items: json.items});
+        this.store.dispatch({type: 'ITEMS_UPDATED', items: json.items});
       })
       .catch(err => {
         // TODO: Change the state of this component, to indicate an error
@@ -47,9 +48,9 @@ export default class Catalog extends React.Component {
 
 
   render() {
-    let displayedItems = reduxStore.getState().items.filter(this.shouldDisplay);
+    let displayedItems = this.store.getState().items.filter(this.shouldDisplay);
     let onTextChanged = (t) => {
-      reduxStore.dispatch({type: 'FILTER_TEXT_CHANGED', filterText: t});
+      this.store.dispatch({type: 'FILTER_TEXT_CHANGED', filterText: t});
     };
 
     return (
@@ -70,4 +71,10 @@ Catalog.propTypes = {
 
 Catalog.defaultProps = {
   getUrl: '/api/v1/products'
+};
+
+// This will make this.context available.
+// The store will be provided by the Provider component.
+Catalog.contextTypes = {
+  store: React.PropTypes.object.isRequired
 };

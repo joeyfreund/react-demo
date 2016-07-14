@@ -1,8 +1,11 @@
 // Client (i.e. frontend) application entry point (i.e. main)
 import React from 'react';
-import {Provider} from 'react-redux';
 import {render} from 'react-dom';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router'
+
+import { createStore } from 'redux';
+import {Provider} from 'react-redux';
+import reducer from './reducers/reducer.js'
 
 import App from './components/app.js';
 import Home from './components/home.js';
@@ -26,7 +29,7 @@ import ProductPage from './components/product_page.js';
 //             which does a smart diff and touches the DOM only if it needs to).
 
 
-var store = require('./store.js');
+var store = createStore(reducer);
 
 render(
   <Provider store={store}>
