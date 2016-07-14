@@ -15,23 +15,7 @@ export default class Catalog extends React.Component {
     super(props, context);
     this.store = this.context.store;
     this.shouldDisplay = this.shouldDisplay.bind(this);
-
-    this.store.subscribe(() => {
-      // FIXME: We need to use render(), not forceUpdate().
-      //        See comment in src/client.js
-      this.forceUpdate();
-    });
-
-
   }
-
-
-  shouldDisplay(item){
-    let t = this.store.getState().filterText.toLowerCase();
-    return item.brand.toLowerCase().includes(t) ||
-         item.name.toLowerCase().includes(t);
-  }
-
 
   componentWillMount() {
     fetch(this.props.getUrl)
@@ -40,12 +24,20 @@ export default class Catalog extends React.Component {
         this.store.dispatch({type: 'ITEMS_UPDATED', items: json.items});
       })
       .catch(err => {
-        // TODO: Change the state of this component, to indicate an error
         console.log('ERROR', err);
       });
   }
 
+  componentDidMount() {
+    this.store.subscribe(this.forceUpdate.bind(this));
+  }
 
+
+  shouldDisplay(item){
+    let t = this.store.getState().filterText.toLowerCase();
+    return item.brand.toLowerCase().includes(t) ||
+         item.name.toLowerCase().includes(t);
+  }
 
   render() {
     let displayedItems = this.store.getState().items.filter(this.shouldDisplay);
